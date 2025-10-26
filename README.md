@@ -12,7 +12,7 @@ The ReactEmbed framework operates in three main stages:
 2.  **Relational Learning:** We train a lightweight enhancement module, consisting of two MLPs (P2U for proteins, M2U for molecules), to project frozen, pre-trained embeddings (e.g., from ProtBert and MolFormer) into a shared space. The training uses a novel relational learning strategy:
     * **Hub-Dampened Positive Sampling:** An anchor node samples a positive partner from its 1-hop neighborhood with a probability proportional to their PPMI edge weight.
     * **Graph-Based Hard Negative Sampling:** The anchor samples two "hard" negatives from its $k$-hop neighborhood ($k > 1$): one from the same domain (e.g., another protein) and one from the opposite domain (e.g., a molecule).
-    * **Dual-Loss Objective:** We optimize two triplet losses: $\mathcal{L}_{\text{intra}}$ (preserving same-domain structure) and $\mathcal{L}_{\text{cross}}$ (driving cross-domain alignment), combined as $\mathcal{L}_{\text{total}} = \alpha\mathcal{L}_{\text{intra}} + (1-\alpha)\mathcal{L}_{\text{cross}}$.
+    * **Dual-Loss Objective:** We optimize two triplet losses: $$\mathcal{L}_{\text{intra}}$$ (preserving same-domain structure) and $$\mathcal{L}_{\text{cross}}$$ (driving cross-domain alignment), combined as $$\mathcal{L}_{\text{total}} = \alpha\mathcal{L}_{\text{intra}} + (1-\alpha)\mathcal{L}_{\text{cross}}$$.
 3.  **Downstream Task Evaluation:** The resulting frozen ReactEmbed-enhanced embeddings are used to train a simple linear classifier (a "linear probe") on downstream tasks, demonstrating improved performance. This unified space also unlocks powerful **zero-shot transfer learning** capabilities.
 
 
@@ -20,7 +20,7 @@ The ReactEmbed framework operates in three main stages:
 
 1.  Clone the repository:
     ```bash
-    git clone [https://github.com/your-username/ReactEmbed.git](https://github.com/your-username/ReactEmbed.git)
+    git clone [https://github.com/amitaysicherman/ReactEmbed.git](https://github.com/amitaysicherman/ReactEmbed.git)
     cd ReactEmbed
     ```
 

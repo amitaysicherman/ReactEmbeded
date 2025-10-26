@@ -1,0 +1,22 @@
+# Core ML
+torch
+numpy
+scikit-learn
+pandas
+
+# Preprocessing
+pybiopax
+requests
+networkx
+tqdm
+joblib
+rdkit-pypi
+
+# Transformers & ESM
+transformers
+biopython
+biotite
+fair-esm
+
+# Downstream Tasks
+torchdrug

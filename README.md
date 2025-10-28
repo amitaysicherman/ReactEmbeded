@@ -48,7 +48,7 @@ This script parses the raw reaction data (e.g., from Reactome), builds the co-oc
 ```bash
 python preprocessing/biopax_parser.py \
     --data_name reactome \
-    --input_owl_file /path/to/Homo_sapiens.owl
+    --input_owl_file data/reactome/Homo_sapiens.owl
 ```
 
 **Step 2: Generate Pre-trained Embeddings**
@@ -70,11 +70,11 @@ python contrastive_learning/trainer.py \
     --data_name reactome \
     --p_model ProtBert \
     --m_model MolFormer \
-    --shared_dim 768 \
-    --hidden_dim 1024 \
+    --shared_dim 128 \
+    --hidden_dim 256 \
     --n_layers 2 \
     --epochs 50 \
-    --batch_size 256 \
+    --batch_size 1 \
     --lr 5e-5 \
     --margin 0.1 \
     --alpha 0.5
@@ -94,7 +94,7 @@ Finally, train and evaluate a linear probe on the downstream task using the Reac
 
 ```bash
 # Get the path to the trained ReactEmbed model from Step 3
-MODEL_NAME="ProtBert-MolFormer-..." # Construct from params
+MODEL_NAME="ProtBert-MolFormer-ProtBert-MolFormer-2-256-128-5e-05-0.1-0.5" # Construct from params
 FUSION_PATH="data/reactome/model/${MODEL_NAME}/"
 
 python eval_tasks/trainer.py \

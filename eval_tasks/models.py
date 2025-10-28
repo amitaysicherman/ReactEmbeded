@@ -43,10 +43,10 @@ class FuseModel(torch.nn.Module):
     """Base class for the downstream task model"""
     def __init__(self, conf: Config, fuse_model=None, fuse_base=""):
         super().__init__()
-        if conf == Config.both:
+        if conf.value == Config.both.value:
             self.use_fuse = True
             self.use_model = True
-        elif conf == Config.PRE:
+        elif conf.value == Config.PRE.value:
             self.use_fuse = False
             self.use_model = True
         else: # Config.our

@@ -94,7 +94,7 @@ def main(data_name, p_model, m_model, shared_dim, n_layers, hidden_dim,
     # Note: Using num_samples for an "epoch" as defined in the dataset
     train_dataset = ReactionGraphDataset(data_name, p_model, m_model, k_hops=[2, 3, 4, 5])
     # Using a simple shuffle in the loader. The dataset __getitem__ handles the complex sampling.
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=0)
 
     # --- Setup Model ---
     p_dim = model_to_dim[p_model]
@@ -145,14 +145,14 @@ if __name__ == '__main__':
     parser.add_argument('--p_model', type=str, default="ProtBert", choices=["ProtBert"])
     parser.add_argument('--m_model', type=str, default="MolFormer", choices=["MolFormer"])
     # Model Architecture Args (from paper)
-    parser.add_argument('--shared_dim', type=int, default=768)
+    parser.add_argument('--shared_dim', type=int, default=128)
     parser.add_argument('--n_layers', type=int, default=2)
-    parser.add_argument('--hidden_dim', type=int, default=1024)
+    parser.add_argument('--hidden_dim', type=int, default=256)
     parser.add_argument('--dropout', type=float, default=0.1) # Added sensible default
     # Training Hyperparameters (from paper)
     parser.add_argument('--epochs', type=int, default=50)
     parser.add_argument('--lr', type=float, default=5e-5)
-    parser.add_argument('--batch_size', type=int, default=256)
+    parser.add_argument('--batch_size', type=int, default=1)
     parser.add_argument('--margin', type=float, default=0.1, help="Triplet loss margin")
     parser.add_argument('--alpha', type=float, default=0.5, help="Weight for L_intra (vs L_cross)")
     

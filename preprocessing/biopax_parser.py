@@ -170,6 +170,8 @@ def build_ppmi_graph(co_occurrence_counts, entity_type_map):
 # --- Main Execution ---
 
 def main(data_name, input_owl_file):
+    if not os.path.exists(input_owl_file):
+        raise FileNotFoundError(f"Input OWL file not found: {input_owl_file}, download from https://rdfportal.org/download/reactome/20230502/")
     proteins_to_id = {}
     molecules_to_id = {}
     entity_type_map = {} # Map node ID (e.g., "P_10") to type ("protein")
@@ -192,7 +194,6 @@ def main(data_name, input_owl_file):
     
     co_occurrence_counts = Counter()
     
-    print(f"Parsing {len(all_reactions)} reactions...")
     for reaction in tqdm(all_reactions):
         elements = []
         for entity in reaction.left:

@@ -70,9 +70,9 @@ class EnhancementModule(nn.Module):
         Projects a batch of frozen embeddings (x) into the shared space
         based on their type ('P' or 'M').
         """
-        if entity_type == "P":
+        if entity_type == 0 or entity_type=="P":
             x = self.p_to_shared(x)
-        elif entity_type == "M":
+        elif entity_type == 1 or entity_type=="M":
             x = self.m_to_shared(x)
         else:
             raise ValueError(f"Invalid entity_type: {entity_type}. Must be 'P' or 'M'.")

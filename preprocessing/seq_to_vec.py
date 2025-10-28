@@ -141,9 +141,10 @@ def main(model, data_name):
         return
 
     print(f"Loading sequences from {file_path}")
-    with open(file_path, "r") as f:
-        lines = f.readlines()
-        
+    with open(file_path, "r", newline='') as f:
+        text = f.read()
+    # Split on '\n' so a trailing newline produces a final empty string (treated as an empty line)
+    lines = text.split('\n')
     print(f"Initializing {model} model...")
     seq_to_vec = SeqToVec(model)
     
@@ -155,7 +156,7 @@ def main(model, data_name):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Convert sequences to vector embeddings.')
-    parser.add_argument('--model', type=str, required=True, choices=["ProtBert", "MolFormer"],
+    parser.add_argument('--model', type=str, default="MolFormer", choices=["ProtBert", "MolFormer"],
                         help='Model to use for embedding.')
     parser.add_argument('--data_name', type=str, default="reactome",
                         help='Data name directory (e.g., reactome)')

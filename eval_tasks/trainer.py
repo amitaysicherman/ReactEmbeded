@@ -133,6 +133,8 @@ def train_model_with_config(config: dict, task_name: str, fuse_base: str, mol_em
                                 n_layers=n_layers, hidden_dim=hidden_dim, fuse_model=fuse_model)
  
     model = model.to(device)
+    print(criterion)
+    print(model)
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
     no_improve = 0
     last_improve_epoch = 0
@@ -226,21 +228,21 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # Key args
     parser.add_argument("--task_name", type=str, default="BBBP")
-    parser.add_argument("--fusion_name", type=str, required=True, help="Path to the trained ReactEmbed model dir")
+    parser.add_argument("--fusion_name", type=str, default="data/reactome/model/ProtBert-MolFormer-2-256-128-5e-05-0.1-0.5", help="Path to the trained ReactEmbed model dir")
     parser.add_argument("--p_model", type=str, default="ProtBert")
     parser.add_argument("--m_model", type=str, default="MolFormer")
-    parser.add_m_model("--metric", type=str, default="auc", help="Metric (auc or rmse)")
+    parser.add_argument("--metric", type=str, default="auc", help="Metric (auc or rmse)")
     
     # Mode
     parser.add_argument("--use_fuse", type=int, default=1, help="Use ReactEmbed embeddings (1 or 0)")
-    parser.add_argument("--use_model", type=int, default=0, help="Use baseline embeddings (1 or 0)")
+    parser.add_argument("--use_model", type=int, default=1, help="Use baseline embeddings (1 or 0)")
     
     # Task model hyperparameters
-    parser.add_argument("--bs", type=int, default=16)
+    parser.add_argument("--bs", type=int, default=128)
     parser.add_argument("--lr", type=float, default=0.001)
     parser.add_argument("--drop_out", type=float, default=0.0)
-    parser.add_argument("--hidden_dim", type=int, default=512)
-    parser.add_argument("--n_layers", type=int, default=1, help="Layers for the linear probe (1 = linear layer)")
+    parser.add_argument("--hidden_dim", type=int, default=64)
+    parser.add_argument("--n_layers", type=int, default=2, help="Layers for the linear probe (1 = linear layer)")
     parser.add_argument("--max_no_improve", type=int, default=15, help="Patience for early stopping")
     
     args = parser.parse_args()
